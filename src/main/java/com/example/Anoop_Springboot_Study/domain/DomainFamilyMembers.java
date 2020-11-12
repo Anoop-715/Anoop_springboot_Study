@@ -3,6 +3,7 @@ package com.example.Anoop_Springboot_Study.domain;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "familyTable")
 public class DomainFamilyMembers {
 
     @Id
