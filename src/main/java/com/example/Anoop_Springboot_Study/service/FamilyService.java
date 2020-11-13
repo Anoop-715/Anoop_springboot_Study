@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.OptionalLong;
 
 
 @Service
@@ -38,14 +39,29 @@ public class FamilyService {
           return getFamilyMembersListFromDomainFamilyMembers(familyRepository.saveAndFlush(domainFamilyMember));
     }
 
+    public Boolean UpdateFamilyMember(Long id,FamilyMember familyMember){
+        try{
+            DomainFamilyMembers domainFamilyMember =  familyRepository.getOne(id);
+            domainFamilyMember.setName(familyMember.getName());
+            domainFamilyMember.setJob(familyMember.getJob());
+            domainFamilyMember.setAge(familyMember.getAge());
+            familyRepository.saveAndFlush(domainFamilyMember);
+            return  true;
+        }
+        catch(Exception e){
+           return  false;
+        }
+    }
+
 
     private FamilyMember getFamilyMembersListFromDomainFamilyMembers(DomainFamilyMembers domainFamilyMember) {
+
        FamilyMember familyMemberObj = new FamilyMember();
 
        familyMemberObj.setId(domainFamilyMember.getId());
        familyMemberObj.setAge(domainFamilyMember.getAge());
        familyMemberObj.setName(domainFamilyMember.getName());
-        familyMemberObj.setJob(domainFamilyMember.getJob());
+       familyMemberObj.setJob(domainFamilyMember.getJob());
        return  familyMemberObj;
     }
 

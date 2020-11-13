@@ -2,11 +2,9 @@ package com.example.Anoop_Springboot_Study.controller;
 
 import com.example.Anoop_Springboot_Study.model.FamilyMember;
 import com.example.Anoop_Springboot_Study.service.FamilyService;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -25,6 +23,11 @@ public class StudentRestController {
     @PostMapping("/addfamilymember")
     public FamilyMember addFamilyMember(@Valid @RequestBody FamilyMember familyMember){
         return familyService.addFamilyMember(familyMember);
+    }
+
+    @PutMapping("/updatefamilymember/{id}")
+    public Boolean UpdateFamilyMember(@PathVariable(value = "id") Long id,@Valid @RequestBody FamilyMember familyMember){
+        return familyService.UpdateFamilyMember(id,familyMember);
     }
 
 
