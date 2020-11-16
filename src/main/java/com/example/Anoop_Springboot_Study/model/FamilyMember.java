@@ -9,10 +9,12 @@ public class FamilyMember {
     @NotNull(message="Name cannot be missing or empty")
     @Size(min=3, message="First name must not be less than 2 characters")
     private String name;
-    private String age;
+    private long age;
     private String job;
 
-    public FamilyMember(Long id, String name, String age, String job) {
+
+
+    public FamilyMember(Long id, String name, long age, String job) {
         this.id = id;
         this.name = name;
         this.age = age;
@@ -38,11 +40,11 @@ public class FamilyMember {
         this.name = name;
     }
 
-    public String getAge() {
+    public long getAge() {
         return age;
     }
 
-    public void setAge(String age) {
+    public void setAge(long age) {
         this.age = age;
     }
 

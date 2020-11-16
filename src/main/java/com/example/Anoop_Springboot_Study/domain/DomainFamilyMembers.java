@@ -14,19 +14,18 @@ public class DomainFamilyMembers {
     private String name;
 
     @Column(name = "Age")
-    private String age;
+    private long age;
 
     @Column(name = "Job")
     private String job;
 
-    public DomainFamilyMembers(String name, String age, String job) {
+    public DomainFamilyMembers() {
+    }
+
+    public DomainFamilyMembers(String name, long age, String job) {
         this.name = name;
         this.age = age;
         this.job = job;
-    }
-
-    public DomainFamilyMembers() {
-
     }
 
     public long getId() {
@@ -45,11 +44,11 @@ public class DomainFamilyMembers {
         this.name = name;
     }
 
-    public String getAge() {
+    public long getAge() {
         return age;
     }
 
-    public void setAge(String age) {
+    public void setAge(long age) {
         this.age = age;
     }
 

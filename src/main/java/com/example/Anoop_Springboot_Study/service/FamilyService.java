@@ -35,7 +35,7 @@ public class FamilyService {
 
 
     public FamilyMember addFamilyMember(FamilyMember familyMember){
-          DomainFamilyMembers domainFamilyMember = new DomainFamilyMembers(familyMember.getName(),familyMember.getJob(),familyMember.getAge());
+          DomainFamilyMembers domainFamilyMember = new DomainFamilyMembers(familyMember.getName(),familyMember.getAge(),familyMember.getJob());
           return getFamilyMembersListFromDomainFamilyMembers(familyRepository.saveAndFlush(domainFamilyMember));
     }
 
@@ -53,15 +53,37 @@ public class FamilyService {
         }
     }
 
+    public Boolean DeleteFamilyMember(Long id) {
+        try {
+            DomainFamilyMembers domainFamilyMember = familyRepository.getOne(id);
+            familyRepository.delete(domainFamilyMember);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+        public Boolean PatchFamilyMember(Long id,FamilyMember familyMember){
+            try{
+                DomainFamilyMembers domainFamilyMember = familyRepository.getOne(id);
+                domainFamilyMember.setAge(familyMember.getAge());
+                familyRepository.saveAndFlush(domainFamilyMember);
+                return  true;
+            } catch(Exception e){
+                return  false;
+            }
+
+        }
+
 
     private FamilyMember getFamilyMembersListFromDomainFamilyMembers(DomainFamilyMembers domainFamilyMember) {
 
        FamilyMember familyMemberObj = new FamilyMember();
 
        familyMemberObj.setId(domainFamilyMember.getId());
-       familyMemberObj.setAge(domainFamilyMember.getAge());
        familyMemberObj.setName(domainFamilyMember.getName());
        familyMemberObj.setJob(domainFamilyMember.getJob());
+       familyMemberObj.setAge(domainFamilyMember.getAge());
+
        return  familyMemberObj;
     }
 

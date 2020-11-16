@@ -1,5 +1,6 @@
 package com.example.Anoop_Springboot_Study.controller;
 
+import com.example.Anoop_Springboot_Study.exception.ApiRequestException;
 import com.example.Anoop_Springboot_Study.model.FamilyMember;
 import com.example.Anoop_Springboot_Study.service.FamilyService;
 import org.hibernate.annotations.DynamicUpdate;
@@ -17,7 +18,8 @@ public class StudentRestController {
 
     @GetMapping("/familymembers")
     public List<FamilyMember> getAllFamilyMembers(){
-        return familyService.getFamilyMembersList();
+        throw new ApiRequestException("Oops Cannot get all students with custom exception.");
+//        return familyService.getFamilyMembersList();
     }
 
     @PostMapping("/addfamilymember")
@@ -26,9 +28,20 @@ public class StudentRestController {
     }
 
     @PutMapping("/updatefamilymember/{id}")
-    public Boolean UpdateFamilyMember(@PathVariable(value = "id") Long id,@Valid @RequestBody FamilyMember familyMember){
+    public Boolean updateFamilyMember(@PathVariable(value = "id") Long id,@Valid @RequestBody FamilyMember familyMember){
         return familyService.UpdateFamilyMember(id,familyMember);
     }
+
+    @DeleteMapping("/deletefamilymember/{id}")
+    public  Boolean deleteFamilyMember(@PathVariable(value = "id") Long id){
+        return familyService.DeleteFamilyMember(id);
+    }
+
+    @PatchMapping("/patchfamily/{id}")
+    public Boolean patchFamily(@PathVariable(value = "id") Long id, @RequestBody FamilyMember familyMember ){
+        return  familyService.PatchFamilyMember(id,familyMember);
+    }
+
 
 
 }
